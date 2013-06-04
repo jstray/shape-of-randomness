@@ -4,33 +4,30 @@ raw = read.csv("schools.csv")
 
 # Select only those rows for a specific school (not district), grade 4 math test, with at least 10 students
 # keep only school name, number of students, score
-schoolrows = (raw['BuildingCode'] != 0) & (raw['Subject'] == 'Reading') & (raw['Grade'] == 4) & (raw['Mean.Scale.Score.2012'] != '<10')
-schoolcols = c("BuildingName", "Total.Tested.2012", "Mean.Scale.Score.2012")
-scores = raw[schoolrows, schoolcols]
-names(scores) = c("School", "ClassSize", "Score")
-scores[,"ClassSize"] = as.numeric(as.character(scores[,"ClassSize"]))
-scores[,"Score"] = as.numeric(as.character(scores[,"Score"]))
+classrows = (raw['BuildingCode'] != 0) & (raw['Subject'] == 'Reading') & (raw['Grade'] == 4) & (raw['Mean.Scale.Score.2012'] != '<10')
+score = as.numeric(as.character(raw[classrows, "Mean.Scale.Score.2012"]))
+classsize = as.numeric(as.character(raw[classrows, "Total.Tested.2012"]))
 
 
 # plot distribution of number of students in the class
-hist(scores[,"ClassSize"], 50)
-hist(scores[,"Score"], 50)
+hist(score, 50)
+hist(classsize, 50)
 
 # take only very highest scoring classes, and look at their class szie
-highscores=scores['Score'] >= 460
-hist(scores[highscores,'ClassSize'])
+highscores = score >= 460
+hist(classsize[highscores])
 
 # compare mean of high-scoring classes vs. all
-mean(scores[highscores,'ClassSize'])
-mean(scores[,'ClassSize'])
+mean(classsize[highscores])
+mean(classsize)
 
 # repeat for lowest-scoring classes
-lowcores=scores['Score'] <= 400
-hist(scores[highscores,'ClassSize'])
+lowscores = score >= 460
+hist(classsize[lowscores])
 
 # compare mean of high-scoring classes vs. all
-mean(scores[highscores,'ClassSize'])
-mean(scores[,'ClassSize'])
+mean(classsize[lowscores])
+mean(classsize)
  
 # Show overall distribution of score vs class size
-plot(scores[,"ClassSize"], scores[,"Score"])
+plot(classsize, score)
