@@ -31,3 +31,30 @@ mean(classsize)
  
 # Show overall distribution of score vs class size
 plot(classsize, score)
+
+# generate boostrap samples of test scores, class sizes
+sampledscore = function() {
+    sample(score, length(score), replace=TRUE)
+}
+
+sampledsize = function() {
+    sample(classsize, length(classsize), replace=TRUE)
+}
+
+plot(sampledsize(), sampledscore())
+
+# View a lot of these. Can you spot which is the real data?
+realchart = sample(1:9, 1)
+
+# Now plot the charts in a grid
+par(mfrow = c(3, 3))
+for (i in 1:9) {
+    if (i == realchart)
+        plot(classsize, score, xlab="", ylab="", cex=0.2)
+    else
+        plot(sampledsize(), sampledscore(), xlab="", ylab="", cex=0.2)
+}
+
+
+
+
