@@ -54,6 +54,7 @@ for (i in 1:9) {
     else
         plot(sampledsize(), sampledscore(), xlab="", ylab="", cex=0.2)
 }
+par(mfrow = c(1, 1))
 
 
 

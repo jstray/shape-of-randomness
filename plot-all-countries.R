@@ -2,7 +2,7 @@
 # data originally from http://www.guardian.co.uk/news/datablog/2012/jul/22/gun-homicides-ownership-world-list
 # augmented with an OECD column
 data = read.csv("firearms.csv", header=T, sep=",")
-OECDrows = data[,"OECD"]=="Y"
+OECDrows = (data[,"OECD"]=="Y") & !(data[,"country"] == "Mexico")
 
 plotcountries <- function(oecd='all') {
     if (oecd == 'all') {

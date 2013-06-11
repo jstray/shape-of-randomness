@@ -27,6 +27,7 @@ par(mfrow = c(3, 3))
 for (i in 1:9) {
 	plot(data[,"firearms"], charts[,i], xlab="", ylab="")
 }
+par(mfrow = c(1, 1))
 
 cat("Press enter to reveal real chart\n")
 readline()
