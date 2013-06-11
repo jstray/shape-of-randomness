@@ -3,32 +3,29 @@ data = read.csv("firearms.csv", header=T, sep=",")
 # plot all OECD countries except the US and mexico
 keeprows = data[,"OECD"]=="Y"
 keeprows = keeprows & !(data[,"country"] == "United States") & !(data[,"country"] == "Mexico")
-data = data[keeprows,]
+guns = data[keeprows,"firearms"]
+deaths = data[keeprows,"homicides"]
 
-# create a matrix with as many rows as countries, plus 9 columns
-charts = matrix(numeric(0), dim(data)[1], 9)
+# plot our data
+plot(guns, deaths)
+
+# permute the deaths, and plot that
+plot(guns, sample(deaths))
+
+# plot a grid of charts, most with permuted Y values, one real
+lineup <- function(x, y, realchart) {
+    par(mfrow = c(3, 3))
+    for (i in 1:9) {
+        if (i==realchart) {
+            plot(x, y, xlab="", ylab="")
+        } else {
+            plot(x, sample(y), xlab="", ylab="")
+        }
+    }
+    par(mfrow = c(1, 1))
+}
 
 # this chart will be the one with the real data
 realchart = sample(1:9, 1)
 
-
-# Fill columns of charts matrix with random permutations of realdata, except for realchart
-for (i in 1:9) {
-    if (i==realchart) {
-        charts[,i] = data[, "homicides"]
-    } else {
-        charts[,i] = sample(data[, "homicides"], dim(data)[1])
-    }
-
-}
-
-# Now plot the charts in a grid
-par(mfrow = c(3, 3))
-for (i in 1:9) {
-	plot(data[,"firearms"], charts[,i], xlab="", ylab="")
-}
-par(mfrow = c(1, 1))
-
-cat("Press enter to reveal real chart\n")
-readline()
-cat("Real data is in chart number ", realchart, "\n")
+lineup(guns, deaths, realchart)
