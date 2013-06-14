@@ -30,16 +30,7 @@ manyrolls <- function(n) {
     par(mfrow = c(1, 1))
 }
 
-
-# roll two six-sided dice and add them
-twodieroll <- function() {
-    dieroll() + dieroll()
-}
-
-# what do we see if we roll two dice 100 times?
-rolls = replicate(100, twodieroll())
-
-# count the number of ways to get each sum
+# count the number of ways to get each sum of a two-dice roll
 count = rep(0, 12)
 for (i in 1:6) { 
     for (j in 1:6) {
@@ -49,10 +40,19 @@ for (i in 1:6) {
 }
 barplot(count)
 
-# look at the histogram for 100 rolls
-hist(replicate(100, twodieroll()), breaks=seq(2:14), right-FALSE)
 
-# look at lots of histograms for 100 rolls
+# roll two six-sided dice and add them
+twodieroll <- function() {
+    dieroll() + dieroll()
+}
+
+# what do we see if we roll two dice 100 times?
+rolls = replicate(100, twodieroll())
+
+# look at the histogram for 100 rolls
+hist(replicate(100, twodieroll()), breaks=seq(2:14), right=FALSE)
+
+# look at lots of histograms for N rolls
 manyrolls2 <- function(n) {
     par(mfrow = c(3, 3))
     for (i in 1:9) {

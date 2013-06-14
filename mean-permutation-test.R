@@ -22,7 +22,7 @@ testvector <- function(a, b) {
 
 # test statistic: difference in means
 meandif <- function(vecs) {
-    abs(mean(unlist(vecs[1])) - mean(unlist(vecs[2])))
+    mean(unlist(vecs[1])) - mean(unlist(vecs[2]))
 }
 
 # so what does that distribution look like? and where's the observed mean?
