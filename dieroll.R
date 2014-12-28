@@ -10,7 +10,7 @@ hist(replicate(100, dieroll()), breaks=seq(1:7), right=FALSE)
 
 # now look at the histogram for a loaded die
 loadedroll <- function() {
-    loading = .18 #1/6
+    loading = .25 #1/4, should be 1/6
     if (runif(1) < loading) {
         1
     } else {
@@ -25,7 +25,7 @@ hist(replicate(60, loadedroll()), breaks=seq(1:7), right=FALSE)
 manyrolls <- function(n) {
     par(mfrow = c(3, 3))
     for (i in 1:9) {
-        hist(replicate(n, dieroll()), breaks=seq(1:7), right-FALSE, xlab=NULL, ylab=NULL, main=NULL)
+        hist(replicate(n, dieroll()), breaks=seq(1:7), right=FALSE, xlab=NULL, ylab=NULL, main=NULL)
     }
     par(mfrow = c(1, 1))
 }
